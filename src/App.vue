@@ -55,8 +55,8 @@ function showThanks() {
         />
       </ClipboardGrid>
     </div>
-      <div class="clear-btn-row">
-        <button
+    <div class="clear-btn-row">
+      <button
           class="add-btn"
           :disabled="clipboardItems.length === 0"
           @click="clearClipboard"
