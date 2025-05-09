@@ -1,5 +1,5 @@
 <template>
-  <div class="clipboard-tile" @click="handleTileClick">
+  <div class="clipboard-tile" @dblclick="handleTileDblClick">
     <div v-if="copied" class="copied-toast">Copied!</div>
     <button
       class="delete-btn"
@@ -27,7 +27,7 @@ const props = defineProps<{ content: string }>()
 const emit = defineEmits(['copy', 'delete'])
 
 const copied = ref(false)
-function handleTileClick(e: MouseEvent) {
+function handleTileDblClick(e: MouseEvent) {
   if (!(e.target as HTMLElement).closest('button')) {
     triggerCopy()
   }

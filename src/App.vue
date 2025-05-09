@@ -10,6 +10,7 @@ interface ClipboardItem {
 }
 
 const clipboardItems = ref<ClipboardItem[]>([])
+const showThanksToast = ref(false)
 
 function addClipboardItem(content: string) {
   clipboardItems.value.unshift({
@@ -29,11 +30,17 @@ function deleteClipboardItem(id: string) {
 function clearClipboard() {
   clipboardItems.value = []
 }
+
+function showThanks() {
+  showThanksToast.value = true
+  setTimeout(() => showThanksToast.value = false, 1500)
+}
 </script>
 
 <template>
   <div id="app">
-    <h1 class="app-title">ClipBuddy</h1>
+    <div v-if="showThanksToast" class="copied-toast thanks-toast">Thanks for using ClipBuddy!</div>
+    <h1 class="app-title" @dblclick="showThanks">ClipBuddy</h1>
     <div class="input-row">
       <ClipboardInput class="flex-1" @add="addClipboardItem" />
     </div>
@@ -48,7 +55,7 @@ function clearClipboard() {
         />
       </ClipboardGrid>
     </div>
-    <div class="clear-btn-row">
+      <div class="clear-btn-row">
         <button
           class="add-btn"
           :disabled="clipboardItems.length === 0"
@@ -56,7 +63,7 @@ function clearClipboard() {
         >
           Clear All
         </button>
-      </div>
+    </div>
   </div>
 </template>
 
