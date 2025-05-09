@@ -47,7 +47,7 @@ function showThanks() {
     <div class="grid-container">
       <ClipboardGrid>
         <ClipboardTile
-          v-for="(item, idx) in clipboardItems"
+          v-for="item in clipboardItems"
           :key="item.id"
           :content="item.content"
           @copy="copyToClipboard(item.content)"
