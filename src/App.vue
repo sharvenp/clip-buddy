@@ -1,30 +1,64 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import ClipboardInput from './components/ClipboardInput.vue'
+import ClipboardGrid from './components/ClipboardGrid.vue'
+import ClipboardTile from './components/ClipboardTile.vue'
+
+interface ClipboardItem {
+  id: string
+  content: string
+}
+
+const clipboardItems = ref<ClipboardItem[]>([])
+
+function addClipboardItem(content: string) {
+  clipboardItems.value.unshift({
+    id: Date.now().toString() + Math.random().toString(36).slice(2),
+    content
+  })
+}
+
+function copyToClipboard(content: string) {
+  navigator.clipboard.writeText(content)
+}
+
+function deleteClipboardItem(id: string) {
+  clipboardItems.value = clipboardItems.value.filter(item => item.id !== id)
+}
+
+function clearClipboard() {
+  clipboardItems.value = []
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <h1 class="app-title">ClipBuddy</h1>
+    <div class="input-row">
+      <ClipboardInput class="flex-1" @add="addClipboardItem" />
+    </div>
+    <div class="grid-container">
+      <ClipboardGrid>
+        <ClipboardTile
+          v-for="(item, idx) in clipboardItems"
+          :key="item.id"
+          :content="item.content"
+          @copy="copyToClipboard(item.content)"
+          @delete="deleteClipboardItem(item.id)"
+        />
+      </ClipboardGrid>
+    </div>
+    <div class="clear-btn-row">
+        <button
+          class="add-btn"
+          :disabled="clipboardItems.length === 0"
+          @click="clearClipboard"
+        >
+          Clear All
+        </button>
+      </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+<style>
 </style>
