@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import ClipboardInput from './components/ClipboardInput.vue'
-import ClipboardGrid from './components/ClipboardGrid.vue'
 import ClipboardTile from './components/ClipboardTile.vue'
+import draggable from 'vuedraggable'
 
 interface ClipboardItem {
   id: string
@@ -116,6 +116,7 @@ function showThanks() {
           <li>Hover over an item to see copy and delete buttons</li>
           <li>Click the copy button to copy the content</li>
           <li>Click the delete button to remove an item</li>
+          <li>Drag and drop items to reorder them</li>
           <li>Use "Clear All" to remove all items</li>
           <li>Use the toggle on the top left to change the theme</li>
         </ul>
@@ -130,24 +131,31 @@ function showThanks() {
       <ClipboardInput class="flex-1" @add="addClipboardItem" />
     </div>
     <div class="grid-container">
-      <ClipboardGrid>
-        <ClipboardTile
-          v-for="item in clipboardItems"
-          :key="item.id"
-          :content="item.content"
-          @copy="copyToClipboard(item.content)"
-          @delete="deleteClipboardItem(item.id)"
-        />
-      </ClipboardGrid>
+      <draggable
+        v-model="clipboardItems"
+        item-key="id"
+        class="clipboard-grid"
+        :animation="200"
+        ghost-class="ghost"
+        drag-class="drag"
+      >
+        <template #item="{ element }">
+          <ClipboardTile
+            :content="element.content"
+            @copy="copyToClipboard(element.content)"
+            @delete="deleteClipboardItem(element.id)"
+          />
+        </template>
+      </draggable>
     </div>
     <div class="clear-btn-row">
       <button
-          class="add-btn"
-          :disabled="clipboardItems.length === 0"
-          @click="clearClipboard"
-        >
-          Clear All
-        </button>
+        class="add-btn"
+        :disabled="clipboardItems.length === 0"
+        @click="clearClipboard"
+      >
+        Clear All
+      </button>
     </div>
   </div>
 </template>
@@ -162,5 +170,23 @@ function showThanks() {
   opacity: 0.8;
   display: flex;
   justify-content: space-between;
+}
+
+.ghost {
+  opacity: 0.5;
+  background: var(--nb-pink);
+}
+
+.drag {
+  cursor: grabbing;
+}
+
+.clipboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
 }
 </style>
