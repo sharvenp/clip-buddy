@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+
 /* Custom styles */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -16,14 +18,20 @@
   --nb-shadow: 4px 4px 0 #000;
 }
 
-body {
+body, html {
   background: var(--nb-bg);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Chivo Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 #app {
   width: 100%;
   margin: 0 auto;
-  padding: 2rem 0;
   text-align: center;
 }
 
@@ -42,7 +50,7 @@ body {
 
 .clipboard-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   width: 100%;
   min-height: 300px;
@@ -72,7 +80,6 @@ body {
   bottom: 7px;
   left: 7px;
   background: var(--nb-pink);
-  color: #111;
   border: 2px solid #000;
   border-radius: 0;
   padding: 0.1em 0.4em;
@@ -87,8 +94,7 @@ body {
   opacity: 1;
 }
 .delete-btn:hover {
-  background: #ff3b6b;
-  color: #fff;
+  background: var(--nb-green);
   border-color: #000;
 }
 
@@ -96,8 +102,7 @@ body {
   position: absolute;
   bottom: 7px;
   right: 7px;
-  background: var(--nb-blue);
-  color: #111;
+  background: var(--nb-pink);
   border: 2px solid #000;
   border-radius: 0;
   padding: 0.1em 0.4em;
@@ -113,7 +118,6 @@ body {
 }
 .copy-btn:hover {
   background: var(--nb-green);
-  color: #000;
   border-color: #000;
 }
 
@@ -146,10 +150,9 @@ body {
   box-shadow: var(--nb-shadow);
   color: #111;
   padding: 1rem 0;
-  font-family: monospace, monospace;
   width: 80vw;
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 4rem auto 1rem auto;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -261,7 +264,7 @@ body {
   font-weight: bold;
   opacity: 0;
   pointer-events: none;
-  animation: toast-fade 1s forwards;
+  animation: toast-fade 1.5s forwards;
   z-index: 10;
   border: 2px solid #000;
   box-shadow: var(--nb-shadow);
@@ -279,4 +282,138 @@ body {
   transform: translateX(-50%);
   position: fixed;
   z-index: 100;
+}
+
+@media screen and (max-width: 1280px) {
+  .app-title {
+    width: 90vw;
+    font-size: 1.8rem;
+    padding: 0.8rem 0;
+    margin: 1rem auto;
+  }
+
+  .clipboard-input {
+    width: 90vw;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-field {
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+
+  .grid-container {
+    width: 90vw;
+    height: 50vh;
+    padding: 2rem 1rem;
+  }
+
+  .clear-btn-row {
+    width: 90vw;
+  }
+
+  .clipboard-tile {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app-title {
+    font-size: 1.5rem;
+    padding: 0.6rem 0;
+    margin: 1rem auto;
+  }
+
+  .grid-container {
+    height: 60vh;
+  }
+
+  .clipboard-tile {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app-title {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+    margin: 1rem auto;
+  }
+
+  .grid-container {
+    height: 60vh;
+  }
+
+  .clipboard-tile {
+    height: 100px;
+  }
+}
+
+.help-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.help-btn {
+  background: var(--nb-yellow);
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: var(--nb-shadow);
+}
+
+.help-btn:hover {
+  background: var(--nb-green);
+}
+
+.help-tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--nb-yellow);
+  border: 2px solid #000;
+  padding: 1rem;
+  width: 300px;
+  text-align: left;
+  box-shadow: var(--nb-shadow);
+}
+
+.help-tooltip h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.help-tooltip ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.help-tooltip li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.help-tooltip li:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .help-tooltip {
+    width: 250px;
+    right: -1rem;
+  }
 }
