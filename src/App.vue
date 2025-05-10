@@ -14,6 +14,21 @@ const showThanksToast = ref(false)
 const showHelp = ref(false)
 const isDarkTheme = ref(false)
 
+// Declare global variables
+declare const __APP_VERSION__: string
+declare const __BUILD_DATE__: string
+
+const version = __APP_VERSION__
+const buildDate = new Date(__BUILD_DATE__).toLocaleString(undefined, {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false
+}).replace(/\//g, '-')
+
 // Load theme preference from localStorage
 onMounted(() => {
   const savedTheme = localStorage.getItem('theme')
@@ -21,6 +36,27 @@ onMounted(() => {
     isDarkTheme.value = true
     document.documentElement.setAttribute('data-theme', 'dark')
   }
+
+  // Add demo items
+  const demoItems = [
+    "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.",
+    "git clone https://github.com/yourusername/clip-buddy.git",
+    "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
+    "npm install && npm run dev",
+    "const greeting = 'Hello, World!';\nconsole.log(greeting);",
+    "https://vuejs.org/guide/introduction.html",
+    "📧 your.email@example.com",
+    "Why did the JavaScript developer go broke? Because he used up all his cache! 💸",
+    "📱 +1 (555) 123-4567",
+    "🔑 API_KEY=your_secret_key_here",
+    "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint",
+    "Why don't scientists trust atoms? Because they make up everything! ⚛️",
+    "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items",
+    "What do you call a computer that sings? A Dell! 🎵",
+    "console.log('Debugging is like being a detective in a crime movie where you are also the murderer! 🔍')"
+  ]
+
+  demoItems.forEach(item => addClipboardItem(item))
 })
 
 // Watch for theme changes
@@ -83,6 +119,10 @@ function showThanks() {
           <li>Use "Clear All" to remove all items</li>
           <li>Use the toggle on the top left to change the theme</li>
         </ul>
+        <div class="version-info">
+          <span>v{{ version }}</span>
+          <span>Built: {{ buildDate }}</span>
+        </div>
       </div>
     </div>
     <h1 class="app-title" @dblclick="showThanks">ClipBuddy</h1>
@@ -113,4 +153,14 @@ function showThanks() {
 </template>
 
 <style>
+.version-info {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--nb-border);
+  font-size: 0.8rem;
+  color: var(--nb-text);
+  opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+}
 </style>

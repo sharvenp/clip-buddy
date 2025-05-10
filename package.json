@@ -1,7 +1,7 @@
 {
   "name": "clip-buddy",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@types/node": "^22.15.17",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.8.3",
