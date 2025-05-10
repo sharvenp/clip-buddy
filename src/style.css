@@ -26,15 +26,15 @@
 }
 
 [data-theme="dark"] {
-  --nb-yellow: #ffd700;
-  --nb-blue: #00a8ff;
-  --nb-pink: #ff4d8d;
-  --nb-green: #00e6ac;
-  --nb-bg: #1a1a1a;
+  --nb-yellow: #ffe066;
+  --nb-blue: #3ecfff;
+  --nb-pink: #ff5ca7;
+  --nb-green: #00ffb2;
+  --nb-bg: #181825;
   --nb-shadow: 4px 4px 0 #fff;
   --nb-text: #fff;
-  --nb-tile-bg: #2d2d2d;
-  --nb-container-bg: #2d2d2d;
+  --nb-tile-bg: #232347;
+  --nb-container-bg: #232347;
   --nb-border: #fff;
   --nb-btn-hover: var(--nb-green);
   --nb-btn-active: var(--nb-pink);
