@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 /* Custom styles */
 :root {
@@ -46,7 +46,7 @@ body, html {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  font-family: "Chivo Mono", monospace;
+  font-family: "Source Code Pro", monospace;
   font-optical-sizing: auto;
   font-style: normal;
   color: var(--nb-text);

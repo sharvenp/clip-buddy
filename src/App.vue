@@ -34,10 +34,6 @@ watch(isDarkTheme, (newValue) => {
   }
 })
 
-for (let i = 0; i < 10; i++) {
-  addClipboardItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-}
-
 function addClipboardItem(content: string) {
   clipboardItems.value.unshift({
     id: Date.now().toString() + Math.random().toString(36).slice(2),
