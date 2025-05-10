@@ -37,26 +37,26 @@ onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'dark')
   }
 
-  // Add demo items
-  const demoItems = [
-    "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.",
-    "git clone https://github.com/yourusername/clip-buddy.git",
-    "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
-    "npm install && npm run dev",
-    "const greeting = 'Hello, World!';\nconsole.log(greeting);",
-    "https://vuejs.org/guide/introduction.html",
-    "📧 your.email@example.com",
-    "Why did the JavaScript developer go broke? Because he used up all his cache! 💸",
-    "📱 +1 (555) 123-4567",
-    "🔑 API_KEY=your_secret_key_here",
-    "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint",
-    "Why don't scientists trust atoms? Because they make up everything! ⚛️",
-    "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items",
-    "What do you call a computer that sings? A Dell! 🎵",
-    "console.log('Debugging is like being a detective in a crime movie where you are also the murderer! 🔍')"
-  ]
+  // // Add demo items
+  // const demoItems = [
+  //   "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.",
+  //   "git clone https://github.com/yourusername/clip-buddy.git",
+  //   "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
+  //   "npm install && npm run dev",
+  //   "const greeting = 'Hello, World!';\nconsole.log(greeting);",
+  //   "https://vuejs.org/guide/introduction.html",
+  //   "📧 your.email@example.com",
+  //   "Why did the JavaScript developer go broke? Because he used up all his cache! 💸",
+  //   "📱 +1 (555) 123-4567",
+  //   "🔑 API_KEY=your_secret_key_here",
+  //   "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint",
+  //   "Why don't scientists trust atoms? Because they make up everything! ⚛️",
+  //   "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items",
+  //   "What do you call a computer that sings? A Dell! 🎵",
+  //   "console.log('Debugging is like being a detective in a crime movie where you are also the murderer! 🔍')"
+  // ]
 
-  demoItems.forEach(item => addClipboardItem(item))
+  // demoItems.forEach(item => addClipboardItem(item))
 })
 
 // Watch for theme changes
