@@ -19,15 +19,11 @@ declare const __APP_VERSION__: string
 declare const __BUILD_DATE__: string
 
 const version = __APP_VERSION__
-const buildDate = new Date(__BUILD_DATE__).toLocaleString(undefined, {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false
-}).replace(/\//g, '-')
+const buildDate = (() => {
+  const date = new Date(__BUILD_DATE__)
+  const pad = (n: number) => n.toString().padStart(2, '0')
+  return `${pad(date.getDate())}-${pad(date.getMonth() + 1)}-${date.getFullYear()} - ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+})()
 
 // Load theme preference from localStorage
 onMounted(() => {
@@ -109,20 +105,16 @@ function showThanks() {
         <svg class="help-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
       </button>
       <div v-if="showHelp" class="help-tooltip">
-        <h3>How to use ClipBuddy:</h3>
+        <h3>How to use ClipBuddy</h3>
         <ul>
-          <li>Type text in the input field and click "Add" or press Enter to add a new item</li>
-          <li>Double-click any item to copy its content</li>
-          <li>Hover over an item to see copy and delete buttons</li>
-          <li>Click the copy button to copy the content</li>
-          <li>Click the delete button to remove an item</li>
-          <li>Drag and drop items to reorder them</li>
-          <li>Use "Clear All" to remove all items</li>
-          <li>Use the toggle on the top left to change the theme</li>
+          <li>Add items by typing and pressing Enter, or paste directly into the input field</li>
+          <li>Copy items by double-clicking or using the copy button (hover to see buttons)</li>
+          <li>Drag items to reorder them, or use the delete button to remove them</li>
+          <li>Use "Clear All" to remove all items, and the toggle on the top left to change theme</li>
         </ul>
         <div class="version-info">
           <span>v{{ version }}</span>
-          <span>Built: {{ buildDate }}</span>
+          <span>[{{ buildDate }}]</span>
         </div>
       </div>
     </div>
