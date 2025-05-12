@@ -7,6 +7,7 @@ import draggable from 'vuedraggable'
 interface ClipboardItem {
   id: string
   content: string
+  type: 'text' | 'image'
 }
 
 const clipboardItems = ref<ClipboardItem[]>([])
@@ -33,26 +34,25 @@ onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'dark')
   }
 
-  // // Add demo items
-  // const demoItems = [
-  //   "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.",
-  //   "git clone https://github.com/yourusername/clip-buddy.git",
-  //   "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
-  //   "npm install && npm run dev",
-  //   "const greeting = 'Hello, World!';\nconsole.log(greeting);",
-  //   "https://vuejs.org/guide/introduction.html",
-  //   "📧 your.email@example.com",
-  //   "Why did the JavaScript developer go broke? Because he used up all his cache! 💸",
-  //   "📱 +1 (555) 123-4567",
-  //   "🔑 API_KEY=your_secret_key_here",
-  //   "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint",
-  //   "Why don't scientists trust atoms? Because they make up everything! ⚛️",
-  //   "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items",
-  //   "What do you call a computer that sings? A Dell! 🎵",
-  //   "console.log('Debugging is like being a detective in a crime movie where you are also the murderer! 🔍')"
-  // ]
+  // Add demo items
+  const demoItems: { content: string; type: 'text' | 'image' }[] = [
+    { content: "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.", type: 'text' },
+    { content: "git clone https://github.com/yourusername/clip-buddy.git", type: 'text' },
+    { content: "Why do programmers prefer dark mode? Because light attracts bugs! 🐛", type: 'text' },
+    { content: "npm install && npm run dev", type: 'text' },
+    { content: "const greeting = 'Hello, World!';\nconsole.log(greeting);", type: 'text' },
+    { content: "https://vuejs.org/guide/introduction.html", type: 'text' },
+    { content: "📧 your.email@example.com", type: 'text' },
+    { content: "Why did the JavaScript developer go broke? Because he used up all his cache! 💸", type: 'text' },
+    { content: "📱 +1 (555) 123-4567", type: 'text' },
+    { content: "🔑 API_KEY=your_secret_key_here", type: 'text' },
+    { content: "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint", type: 'text' },
+    { content: "Why don't scientists trust atoms? Because they make up everything! ⚛️", type: 'text' },
+    { content: "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items\n4. Paste images directly to add them!", type: 'text' },
+    { content: "What do you call a computer that sings? A Dell! 🎵", type: 'text' },
+  ]
 
-  // demoItems.forEach(item => addClipboardItem(item))
+  demoItems.forEach(item => addClipboardItem(item.content, item.type))
 })
 
 // Watch for theme changes
@@ -66,15 +66,26 @@ watch(isDarkTheme, (newValue) => {
   }
 })
 
-function addClipboardItem(content: string) {
+function addClipboardItem(content: string, type: 'text' | 'image' = 'text') {
   clipboardItems.value.unshift({
     id: Date.now().toString() + Math.random().toString(36).slice(2),
-    content
+    content,
+    type
   })
 }
 
-function copyToClipboard(content: string) {
-  navigator.clipboard.writeText(content)
+function copyToClipboard(content: string, type: 'text' | 'image') {
+  if (type === 'text') {
+    navigator.clipboard.writeText(content)
+  } else {
+    // For images, we need to convert the base64 to a blob and write it to clipboard
+    fetch(content)
+      .then(res => res.blob())
+      .then(blob => {
+        const item = new ClipboardItem({ 'image/png': blob })
+        navigator.clipboard.write([item])
+      })
+  }
 }
 
 function deleteClipboardItem(id: string) {
@@ -107,7 +118,7 @@ function showThanks() {
       <div v-if="showHelp" class="help-tooltip">
         <h3>How to use ClipBuddy</h3>
         <ul>
-          <li>Add items by typing and pressing Enter, or paste directly into the input field</li>
+          <li>Add items by typing and pressing Enter, or paste text/images directly into the input field</li>
           <li>Copy items by double-clicking or using the copy button (hover to see buttons)</li>
           <li>Drag items to reorder them, or use the delete button to remove them</li>
           <li>Use "Clear All" to remove all items, and the toggle on the top left to change theme</li>
@@ -134,7 +145,8 @@ function showThanks() {
         <template #item="{ element }">
           <ClipboardTile
             :content="element.content"
-            @copy="copyToClipboard(element.content)"
+            :type="element.type"
+            @copy="copyToClipboard(element.content, element.type)"
             @delete="deleteClipboardItem(element.id)"
           />
         </template>

@@ -13,17 +13,18 @@
       @click.stop="triggerCopy"
       title="Copy to clipboard"
     >
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560h-80v120H280v-120h-80v560Zm280-560q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560h-80v120H280v-120h-80v560Zm280-560q17 0 28.5-11.5T520-760q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760q0 17 11.5 28.5T480-720Z"/></svg>
     </button>
-    <div class="tile-content">
-      {{ content }}
+    <div class="tile-content" :class="{ 'image-content': type === 'image' }">
+      <img v-if="type === 'image'" :src="content" alt="Pasted image" />
+      <template v-else>{{ content }}</template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const props = defineProps<{ content: string }>()
+const props = defineProps<{ content: string, type: 'text' | 'image' }>()
 const emit = defineEmits(['copy', 'delete'])
 
 const copied = ref(false)
@@ -33,7 +34,7 @@ function handleTileDblClick(e: MouseEvent) {
   }
 }
 function triggerCopy() {
-  emit('copy', props.content)
+  emit('copy', props.content, props.type)
   copied.value = true
   setTimeout(() => copied.value = false, 1500)
 }
@@ -46,5 +47,23 @@ function triggerCopy() {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.image-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  background: var(--nb-container-bg);
+  border-radius: 4px;
+  height: 100%;
+}
+
+.image-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.5rem;
 }
 </style>
