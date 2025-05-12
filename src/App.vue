@@ -35,24 +35,24 @@ onMounted(() => {
   }
 
   // Add demo items
-  const demoItems: { content: string; type: 'text' | 'image' }[] = [
-    { content: "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.", type: 'text' },
-    { content: "git clone https://github.com/yourusername/clip-buddy.git", type: 'text' },
-    { content: "Why do programmers prefer dark mode? Because light attracts bugs! 🐛", type: 'text' },
-    { content: "npm install && npm run dev", type: 'text' },
-    { content: "const greeting = 'Hello, World!';\nconsole.log(greeting);", type: 'text' },
-    { content: "https://vuejs.org/guide/introduction.html", type: 'text' },
-    { content: "📧 your.email@example.com", type: 'text' },
-    { content: "Why did the JavaScript developer go broke? Because he used up all his cache! 💸", type: 'text' },
-    { content: "📱 +1 (555) 123-4567", type: 'text' },
-    { content: "🔑 API_KEY=your_secret_key_here", type: 'text' },
-    { content: "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint", type: 'text' },
-    { content: "Why don't scientists trust atoms? Because they make up everything! ⚛️", type: 'text' },
-    { content: "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items\n4. Paste images directly to add them!", type: 'text' },
-    { content: "What do you call a computer that sings? A Dell! 🎵", type: 'text' },
-  ]
+  // const demoItems: { content: string; type: 'text' | 'image' }[] = [
+  //   { content: "📋 Welcome to ClipBuddy! Double-click any item to copy it to your clipboard.", type: 'text' },
+  //   { content: "git clone https://github.com/yourusername/clip-buddy.git", type: 'text' },
+  //   { content: "Why do programmers prefer dark mode? Because light attracts bugs! 🐛", type: 'text' },
+  //   { content: "npm install && npm run dev", type: 'text' },
+  //   { content: "const greeting = 'Hello, World!';\nconsole.log(greeting);", type: 'text' },
+  //   { content: "https://vuejs.org/guide/introduction.html", type: 'text' },
+  //   { content: "📧 your.email@example.com", type: 'text' },
+  //   { content: "Why did the JavaScript developer go broke? Because he used up all his cache! 💸", type: 'text' },
+  //   { content: "📱 +1 (555) 123-4567", type: 'text' },
+  //   { content: "🔑 API_KEY=your_secret_key_here", type: 'text' },
+  //   { content: "📝 Meeting Notes:\n- Discuss project timeline\n- Review design mockups\n- Plan next sprint", type: 'text' },
+  //   { content: "Why don't scientists trust atoms? Because they make up everything! ⚛️", type: 'text' },
+  //   { content: "📋 Quick Tips:\n1. Use the theme toggle in the top left\n2. Hover over items for copy/delete options\n3. Press Enter to add new items\n4. Paste images directly to add them!", type: 'text' },
+  //   { content: "What do you call a computer that sings? A Dell! 🎵", type: 'text' },
+  // ]
 
-  demoItems.forEach(item => addClipboardItem(item.content, item.type))
+  // demoItems.forEach(item => addClipboardItem(item.content, item.type))
 })
 
 // Watch for theme changes
